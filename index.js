@@ -1,6 +1,6 @@
 const config = {
-no_ref: "off", //Control the HTTP referrer header, if you want to create an anonymous link that will hide the HTTP Referer header, please set to "on" .
-theme:"",//Homepage theme, use the empty value for default theme. To use urlcool theme, please fill with "theme/urlcool" .
+no_ref: "on", //Control the HTTP referrer header, if you want to create an anonymous link that will hide the HTTP Referer header, please set to "on" .
+theme:"urlcool",//Homepage theme, use the empty value for default theme. To use urlcool theme, please fill with "urlcool" .
 cors: "on",//Allow Cross-origin resource sharing for API requests.
 }
 
@@ -86,7 +86,7 @@ async function handleRequest(request) {
   console.log(path)
   if(!path){
 
-    const html= await fetch("https://xytom.github.io/Url-Shorten-Worker/"+config.theme+"/index.html")
+    const html= await fetch("https://cdn.jsdelivr.net/gh/julydate/Url-Shorten-Worker@main/"+config.theme+".html")
     
     return new Response(await html.text(), {
     headers: {
@@ -101,7 +101,7 @@ async function handleRequest(request) {
   const location = value
   if (location) {
     if (config.no_ref=="on"){
-      let no_ref= await fetch("https://xytom.github.io/Url-Shorten-Worker/no-ref.html")
+      let no_ref= await fetch("https://cdn.jsdelivr.net/gh/julydate/Url-Shorten-Worker@main/no-ref.html")
       no_ref=await no_ref.text()
       no_ref=no_ref.replace(/{Replace}/gm, location)
       return new Response(no_ref, {
